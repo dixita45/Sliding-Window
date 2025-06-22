@@ -21,6 +21,9 @@ public class Main {
         String str="aaabbccd";
         int odds=2;
         System.out.println(longSubstringWithDistinctChar(str,odds));
+
+        String s="abcabc";
+        System.out.println(numberOfSubstrings(s));
     }
 
     //Max Points From Cards
@@ -142,6 +145,22 @@ public class Main {
             r++;
         }
         return maxlen;
+    }
+
+    //Number of Substrings Containing All Three Characters
+    static int numberOfSubstrings(String str)
+    {
+        int[] threes={-1,-1,-1};
+        int count=0;
+        for(int i=0;i<str.length();i++)
+        {
+            threes[str.charAt(i)-'a']=i;
+            if(threes[0]!=-1 && threes[1]!=-1 && threes[2]!=-1)
+            {
+                count += 1 + Math.min(threes[0], Math.min(threes[1], threes[2]));
+            }
+        }
+        return count;
     }
 }
 
