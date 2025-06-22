@@ -1,16 +1,22 @@
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
+
 public class Main {
     public static void main(String[] args) {
         int[] cards ={6,2,3,4,7,2,1,7,1};
         int k=4;
-        System.out.println(maxPointsFromCards(cards,k));
+       System.out.println(maxPointsFromCards(cards,k));
 
         String st="pwwkew";
-        System.out.println(lengthOfLongestSubstring(st));
+       System.out.println(lengthOfLongestSubstring(st));
 
         int[] nums ={0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1};
         int k0=3;
-        System.out.println(longestOnes(nums,k0));
+       System.out.println(longestOnes(nums,k0));
+
+        int[] fruits={1,2,3,2,2};
+        System.out.println(totalFruit(fruits));
     }
 
     //Max Points From Cards
@@ -83,6 +89,29 @@ public class Main {
                 right++;
             }
 
+        }
+        return maxlen;
+    }
+
+    //Fruit Into Baskets
+    static int totalFruit(int[] fruits) {
+        int l=0,r=0,maxlen=0;
+        HashMap<Integer,Integer> map= new HashMap<>();
+        while(r<fruits.length)
+        {
+            map.put(fruits[r], map.getOrDefault(fruits[r], 0) + 1);
+                while(map.size()>2)
+                {
+                    map.put(fruits[l], map.get(fruits[l]) - 1);
+                    if(map.get(fruits[l])==0) {
+                        map.remove(fruits[l]);
+
+                    }
+                        l++;
+
+                }
+            maxlen = Math.max(maxlen, r - l + 1);
+            r++;
         }
         return maxlen;
     }
