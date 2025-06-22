@@ -23,7 +23,19 @@ public class Main {
         System.out.println(longSubstringWithDistinctChar(str,odds));
 
         String s="abcabc";
-        System.out.println(numberOfSubstrings(s));
+      System.out.println(numberOfSubstrings(s));
+
+        String caps="ABBABAB";
+        int change=2;
+        System.out.println(characterReplacement(caps,change));
+
+        int[] nums10 ={0,0,0,0,0};
+        int goal=0;
+        System.out.println(numSubarraysWithSum(nums10,goal));
+
+        int[] n ={1,1,2,1,1};
+        int totalOdds=3;
+        System.out.println(numberOfNiceSubarrays(n,totalOdds));
     }
 
     //Max Points From Cards
@@ -162,5 +174,79 @@ public class Main {
         }
         return count;
     }
+
+    //Longest Repeating Character Replacement
+    static int characterReplacement(String str, int k)
+    {
+        int l=0,r=0,maxlen=0,maxfreq=0;
+        HashMap<Character,Integer> map= new HashMap<>();
+        while(r<str.length())
+        {
+            map.put(str.charAt(r), map.getOrDefault(str.charAt(r), 0) + 1);
+            while(map.size()>k)
+            {
+                map.put(str.charAt(l), map.get(str.charAt(l)) - 1);
+                maxfreq = Math.max(maxfreq, maxlen-maxfreq);
+                if(map.get(str.charAt(l))==0) {
+                    map.remove(str.charAt(l));
+                }
+                l++;
+
+            }
+            maxlen = Math.max(maxlen, r - l + 1);
+            r++;
+        }
+        return maxlen;
+    }
+
+    //Binary Subarrays With Sum
+    static int numSubarraysWithSum(int[] nums, int goal)
+    {
+        if(goal<0) return 0;
+        return fun2(nums,goal)-fun2(nums,(goal-1));
+    }
+    static int fun2(int[] nums,int goal)
+    {
+        int l=0,r=0,sum=0,count=0;
+        while(r<nums.length)
+        {
+           sum+=nums[r];
+           while(l<=r && sum>goal)
+           {
+               sum-=nums[l];
+               l++;
+           }
+           count+=(r-l+1);
+           r++;
+
+        }
+        return count;
+    }
+
+    //Number Of Nice Subarrays
+    static int numberOfNiceSubarrays(int[] nums, int k)
+    {
+        if(k<0) return 0;
+        return fun3(nums,k)-fun3(nums,(k-1));
+    }
+    static int fun3(int[] nums,int goal)
+    {
+        int l=0,r=0,sum=0,count=0;
+        while(r<nums.length)
+        {
+            sum+=nums[r]%2;
+            while(l<=r && sum>goal)
+            {
+                sum-=nums[l]%2;
+                l++;
+            }
+            count+=(r-l+1);
+            r++;
+
+        }
+        return count;
+    }
 }
+
+
 
