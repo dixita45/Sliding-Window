@@ -4,43 +4,51 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        int[] cards ={6,2,3,4,7,2,1,7,1};
-        int k=4;
-       System.out.println(maxPointsFromCards(cards,k));
+        int[] cards = {6, 2, 3, 4, 7, 2, 1, 7, 1};
+        int k = 4;
+        System.out.println(maxPointsFromCards(cards, k));
 
-        String st="pwwkew";
-       System.out.println(lengthOfLongestSubstring(st));
+        String st = "pwwkew";
+        System.out.println(lengthOfLongestSubstring(st));
 
-        int[] nums ={0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1};
-        int k0=3;
-       System.out.println(longestOnes(nums,k0));
+        int[] nums = {0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1};
+        int k0 = 3;
+        System.out.println(longestOnes(nums, k0));
 
-        int[] fruits={1,2,3,2,2};
+        int[] fruits = {1, 2, 3, 2, 2};
         System.out.println(totalFruit(fruits));
 
-        String str="aaabbccd";
-        int odds=2;
-        System.out.println(longSubstringWithDistinctChar(str,odds));
+        String str = "aaabbccd";
+        int odds = 2;
+        System.out.println(longSubstringWithDistinctChar(str, odds));
 
-        String s="abcabc";
-      System.out.println(numberOfSubstrings(s));
+        String s = "abcabc";
+        System.out.println(numberOfSubstrings(s));
 
-        String caps="ABBABAB";
-        int change=2;
-        System.out.println(characterReplacement(caps,change));
+        String caps = "ABBABAB";
+        int change = 2;
+        System.out.println(characterReplacement(caps, change));
 
-        int[] nums10 ={0,0,0,0,0};
-        int goal=0;
-        System.out.println(numSubarraysWithSum(nums10,goal));
+        int[] nums10 = {0, 0, 0, 0, 0};
+        int goal = 0;
+        System.out.println(numSubarraysWithSum(nums10, goal));
 
-        int[] n ={1,1,2,1,1};
-        int totalOdds=3;
-        System.out.println(numberOfNiceSubarrays(n,totalOdds));
+        int[] n = {1, 1, 2, 1, 1};
+        int totalOdds = 3;
+        System.out.println(numberOfNiceSubarrays(n, totalOdds));
+
+        int[] nums2 = {1,2,1,3,4};
+        int diff = 3;
+        System.out.println(subarraysWithKDistinct(nums2, diff));
+
+        String st1 = "xyzzaz";
+        System.out.println(countGoodSubstrings(st1));
     }
 
+
+
     //Max Points From Cards
-    static int maxPointsFromCards(int[] cards, int k)
-    {
+    static int maxPointsFromCards(int[] cards, int k) {
         int n = cards.length;
         int totalSum = 0;
 
@@ -62,49 +70,39 @@ public class Main {
     }
 
     //Length Of Longest Substring
-    static int lengthOfLongestSubstring(String s)
-    {
-        int left=0,right=0,max=0;
-        HashSet<Character> set =new HashSet<>();
-        while(right < s.length())
-        {
-            if(!set.contains(s.charAt(right)))
-            {
+    static int lengthOfLongestSubstring(String s) {
+        int left = 0, right = 0, max = 0;
+        HashSet<Character> set = new HashSet<>();
+        while (right < s.length()) {
+            if (!set.contains(s.charAt(right))) {
                 set.add(s.charAt(right));
                 right++;
-                max=Math.max(set.size(),max);
-            }
-            else{
+                max = Math.max(set.size(), max);
+            } else {
                 set.remove(s.charAt(left));
                 left++;
             }
         }
-       return max;
+        return max;
     }
 
     //Max Consecutive Ones III
-    static int longestOnes(int[] nums, int k0)
-    {
-        int left=0,right=0,maxlen=0,zeros=0,len=0;
-        while(right<nums.length)
-        {
-            if(nums[right]==0)
-            {
+    static int longestOnes(int[] nums, int k0) {
+        int left = 0, right = 0, maxlen = 0, zeros = 0, len = 0;
+        while (right < nums.length) {
+            if (nums[right] == 0) {
                 zeros++;
             }
-            while(zeros>k0)
-            {
-                if(nums[left]==0)
-                {
+            while (zeros > k0) {
+                if (nums[left] == 0) {
                     zeros--;
 
                 }
-                    left++;
+                left++;
             }
-            if(zeros<=k0)
-            {
-                len=right-left+1;
-                maxlen=Math.max(len,maxlen);
+            if (zeros <= k0) {
+                len = right - left + 1;
+                maxlen = Math.max(len, maxlen);
                 right++;
             }
 
@@ -113,23 +111,20 @@ public class Main {
     }
 
     //Fruit Into Baskets
-    static int totalFruit(int[] fruits)
-    {
-        int l=0,r=0,maxlen=0;
-        HashMap<Integer,Integer> map= new HashMap<>();
-        while(r<fruits.length)
-        {
+    static int totalFruit(int[] fruits) {
+        int l = 0, r = 0, maxlen = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        while (r < fruits.length) {
             map.put(fruits[r], map.getOrDefault(fruits[r], 0) + 1);
-                while(map.size()>2)
-                {
-                    map.put(fruits[l], map.get(fruits[l]) - 1);
-                    if(map.get(fruits[l])==0) {
-                        map.remove(fruits[l]);
-
-                    }
-                        l++;
+            while (map.size() > 2) {
+                map.put(fruits[l], map.get(fruits[l]) - 1);
+                if (map.get(fruits[l]) == 0) {
+                    map.remove(fruits[l]);
 
                 }
+                l++;
+
+            }
             maxlen = Math.max(maxlen, r - l + 1);
             r++;
         }
@@ -137,17 +132,14 @@ public class Main {
     }
 
     //Longest Substring With At Most K Distinct Characters
-    static int longSubstringWithDistinctChar(String str, int odds)
-    {
-        int l=0,r=0,maxlen=0;
-        HashMap<Character,Integer> map= new HashMap<>();
-        while(r<str.length())
-        {
+    static int longSubstringWithDistinctChar(String str, int odds) {
+        int l = 0, r = 0, maxlen = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        while (r < str.length()) {
             map.put(str.charAt(r), map.getOrDefault(str.charAt(r), 0) + 1);
-            while(map.size()>odds)
-            {
+            while (map.size() > odds) {
                 map.put(str.charAt(l), map.get(str.charAt(l)) - 1);
-                if(map.get(str.charAt(l))==0) {
+                if (map.get(str.charAt(l)) == 0) {
                     map.remove(str.charAt(l));
                 }
                 l++;
@@ -160,15 +152,12 @@ public class Main {
     }
 
     //Number of Substrings Containing All Three Characters
-    static int numberOfSubstrings(String str)
-    {
-        int[] threes={-1,-1,-1};
-        int count=0;
-        for(int i=0;i<str.length();i++)
-        {
-            threes[str.charAt(i)-'a']=i;
-            if(threes[0]!=-1 && threes[1]!=-1 && threes[2]!=-1)
-            {
+    static int numberOfSubstrings(String str) {
+        int[] threes = {-1, -1, -1};
+        int count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            threes[str.charAt(i) - 'a'] = i;
+            if (threes[0] != -1 && threes[1] != -1 && threes[2] != -1) {
                 count += 1 + Math.min(threes[0], Math.min(threes[1], threes[2]));
             }
         }
@@ -176,18 +165,15 @@ public class Main {
     }
 
     //Longest Repeating Character Replacement
-    static int characterReplacement(String str, int k)
-    {
-        int l=0,r=0,maxlen=0,maxfreq=0;
-        HashMap<Character,Integer> map= new HashMap<>();
-        while(r<str.length())
-        {
+    static int characterReplacement(String str, int k) {
+        int l = 0, r = 0, maxlen = 0, maxfreq = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        while (r < str.length()) {
             map.put(str.charAt(r), map.getOrDefault(str.charAt(r), 0) + 1);
-            while(map.size()>k)
-            {
+            while (map.size() > k) {
                 map.put(str.charAt(l), map.get(str.charAt(l)) - 1);
-                maxfreq = Math.max(maxfreq, maxlen-maxfreq);
-                if(map.get(str.charAt(l))==0) {
+                maxfreq = Math.max(maxfreq, maxlen - maxfreq);
+                if (map.get(str.charAt(l)) == 0) {
                     map.remove(str.charAt(l));
                 }
                 l++;
@@ -200,52 +186,85 @@ public class Main {
     }
 
     //Binary Subarrays With Sum
-    static int numSubarraysWithSum(int[] nums, int goal)
-    {
-        if(goal<0) return 0;
-        return fun2(nums,goal)-fun2(nums,(goal-1));
+    static int numSubarraysWithSum(int[] nums, int goal) {
+        if (goal < 0) return 0;
+        return fun2(nums, goal) - fun2(nums, (goal - 1));
     }
-    static int fun2(int[] nums,int goal)
-    {
-        int l=0,r=0,sum=0,count=0;
-        while(r<nums.length)
-        {
-           sum+=nums[r];
-           while(l<=r && sum>goal)
-           {
-               sum-=nums[l];
-               l++;
-           }
-           count+=(r-l+1);
-           r++;
+
+    static int fun2(int[] nums, int goal) {
+        int l = 0, r = 0, sum = 0, count = 0;
+        while (r < nums.length) {
+            sum += nums[r];
+            while (l <= r && sum > goal) {
+                sum -= nums[l];
+                l++;
+            }
+            count += (r - l + 1);
+            r++;
 
         }
         return count;
     }
 
     //Number Of Nice Subarrays
-    static int numberOfNiceSubarrays(int[] nums, int k)
-    {
-        if(k<0) return 0;
-        return fun3(nums,k)-fun3(nums,(k-1));
+    static int numberOfNiceSubarrays(int[] nums, int k) {
+        if (k < 0) return 0;
+        return fun3(nums, k) - fun3(nums, (k - 1));
     }
-    static int fun3(int[] nums,int goal)
-    {
-        int l=0,r=0,sum=0,count=0;
-        while(r<nums.length)
-        {
-            sum+=nums[r]%2;
-            while(l<=r && sum>goal)
-            {
-                sum-=nums[l]%2;
+
+    static int fun3(int[] nums, int goal) {
+        int l = 0, r = 0, sum = 0, count = 0;
+        while (r < nums.length) {
+            sum += nums[r] % 2;
+            while (l <= r && sum > goal) {
+                sum -= nums[l] % 2;
                 l++;
             }
-            count+=(r-l+1);
+            count += (r - l + 1);
             r++;
 
         }
         return count;
     }
+
+    //Subarray with k different integers
+    static int subarraysWithKDistinct(int[] nums, int k)
+    {
+        if (k < 0) return 0;
+        return fun4(nums, k) - fun4(nums, (k - 1));
+    }
+    static int fun4(int[] nums, int k)
+    {
+        int l = 0, r = 0, count = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        while (r < nums.length) {
+            map.put(nums[r], map.getOrDefault(nums[r], 0) + 1);
+            while (map.size() > k) {
+                map.put(nums[l], map.get(nums[l]) - 1);
+                if (map.get(nums[l]) == 0) {
+                    map.remove(nums[l]);
+                }
+                l++;
+
+            }
+            count+=(r-l+1);
+            r++;
+        }
+        return count;
+    }
+
+    //Substring of size 3 with Distinct Characters
+    static int countGoodSubstrings(String s) {
+        int count = 0;
+        for (int i = 0; i <= s.length() - 3; i++) {
+            char a = s.charAt(i), b = s.charAt(i + 1), c = s.charAt(i + 2);
+            if (a != b && b != c && a != c) {
+                count++;
+            }
+        }
+        return count;
+    }
+
 }
 
 
