@@ -17,6 +17,10 @@ public class Main {
 
         int[] fruits={1,2,3,2,2};
         System.out.println(totalFruit(fruits));
+
+        String str="aaabbccd";
+        int odds=2;
+        System.out.println(longSubstringWithDistinctChar(str,odds));
     }
 
     //Max Points From Cards
@@ -94,7 +98,8 @@ public class Main {
     }
 
     //Fruit Into Baskets
-    static int totalFruit(int[] fruits) {
+    static int totalFruit(int[] fruits)
+    {
         int l=0,r=0,maxlen=0;
         HashMap<Integer,Integer> map= new HashMap<>();
         while(r<fruits.length)
@@ -115,4 +120,28 @@ public class Main {
         }
         return maxlen;
     }
+
+    //Longest Substring With At Most K Distinct Characters
+    static int longSubstringWithDistinctChar(String str, int odds)
+    {
+        int l=0,r=0,maxlen=0;
+        HashMap<Character,Integer> map= new HashMap<>();
+        while(r<str.length())
+        {
+            map.put(str.charAt(r), map.getOrDefault(str.charAt(r), 0) + 1);
+            while(map.size()>odds)
+            {
+                map.put(str.charAt(l), map.get(str.charAt(l)) - 1);
+                if(map.get(str.charAt(l))==0) {
+                    map.remove(str.charAt(l));
+                }
+                l++;
+
+            }
+            maxlen = Math.max(maxlen, r - l + 1);
+            r++;
+        }
+        return maxlen;
+    }
 }
+
